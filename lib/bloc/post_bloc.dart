@@ -34,12 +34,17 @@ class PostBloc extends Bloc<PostEvents, PostState> {
 
   Stream<PostState> _filter(event) async* {
     if (event.term.toString().isEmpty) {
+      print("got into if");
       yield FilteredState(event.posts);
     } else {
       var filter = [];
       filter = event.posts
           .where((i) => i["title"].toString().contains(event.term.toString()))
           .toList();
+      print("Count is ${filter.length}");
+      // for (var i in filter) {
+      //   print(i['title']);
+      // }
       yield FilteredState(filter);
     }
   }
